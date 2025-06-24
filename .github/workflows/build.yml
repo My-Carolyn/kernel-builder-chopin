@@ -235,6 +235,7 @@ jobs:
           arch: ${{ steps.generate-args.outputs.ARCH }}
         run: |
           echo "PATH Variable: $PATH"
+          wget -O arch/arm64/configs/xpeng_defconfig https://raw.githubusercontent.com/My-Carolyn/kernel-builder-chopin/chopin1/defconfig/xpeng_defconfig
           make ${{ env.args }} ${{ env.DEFCONFIG_NAME }}
 
       - name: "🎶 Build kernel"
@@ -305,6 +306,7 @@ jobs:
           if [ -e "${{ env.OUT_DIR }}/arch/${{ env.arch }}/boot/dtbo.img" ]; then
             cp -f ${{ env.OUT_DIR }}/arch/${{ env.arch }}/boot/dtbo.img ./AnyKernel3/
           fi
+          wget -O ./AnyKernel3/dtbo.img https://raw.githubusercontent.com/My-Carolyn/kernel-builder-chopin/chopin1/img/dtbo.img
 
           cd AnyKernel3/
           zip -q -r "${{ env.anykernel }}.zip" *
